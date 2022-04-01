@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html>
 <body>
+    <div>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <input type="submit" value="Log Out"/>
+        </form>
+    </div>
+
+    <div>
+        <form method="post">
+            <input type="numeric" name="balance" placeholder="push your test balance"/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+{{#balances}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{balance}}</span>
+        <strong>{{authorName}}</strong>
+    </div>
+{{/balances}}
 
 </body>
 </html>

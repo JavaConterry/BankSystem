@@ -1,39 +1,40 @@
-package com.example.banksystem.control;
+package com.example.banksystem.controller;
 
-import com.example.banksystem.entities.User;
-import com.example.banksystem.repositories.UserRepository;
+
+import com.example.banksystem.domain.Role;
+import com.example.banksystem.domain.User;
+import com.example.banksystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.Map;
 
 @Controller
 public class RegistrationController {
-
     @Autowired
     private UserRepository userRepository;
-    
-    
+
     @GetMapping("/registration")
     public String registration(Map<String, Object> model){
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String addUser(@RequestParam String username, @RequestParam String password,
-            Map<String, Object> model){
-        User userFromDB = userRepository.findByUsername(username);
-        if(userFromDB != null){
-            return "login";
-        }
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        userRepository.save(user);
-        return "redirect:/login";
-    }
+    public String addUser(User user, Map<String, Object> model){
+        User userFromDB = userRepository.findByUsername(user.getUsername());
 
+        if(userFromDB !=null){
+            return "registration";
+        }
+
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
+        userRepository.save(user);
+
+        return "redirect:/login";
+
+    }
 }
