@@ -6,31 +6,39 @@ import javax.persistence.*;
 public class Balance {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private Integer balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User author;
+    private User owner;
 
     public Balance() {
     }
 
     public Balance(Integer balance, User user) {
         this.balance = balance;
-        this.author = user;
+        this.owner = user;
     }
 
-    public String getAuthorName() {
-        return  author != null ? author.getUsername() : "<none>";
+    public User getOwner() {
+        return owner;
     }
 
-    public Integer getId() {
+    public String getOwnerName() {
+        return  owner != null ? owner.getUsername() : "<none>";
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,5 +49,6 @@ public class Balance {
     public void setBalance(Integer balance) {
         this.balance = balance;
     }
+
 
 }

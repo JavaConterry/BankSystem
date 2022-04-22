@@ -6,6 +6,12 @@
             <input type="submit" value="Log Out"/>
         </form>
     </div>
+{{#currentBalance}}
+    <div>
+        <p>Money in your account: {{balance}}</p>
+    </div>
+{{/currentBalance}}
+
 
     <div>
         <form method="post">
@@ -19,7 +25,7 @@
     <div>
         <b>{{id}}</b>
         <span>{{balance}}</span>
-        <strong>{{authorName}}</strong>
+        <strong>{{ownerName}}</strong>
     </div>
 {{/balances}}
 
